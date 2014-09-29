@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Bar Chart</title>
+		<script src="Chart.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+	</head>
+	<body>
+		<div class="row">
+			<div class = "col-xs-12">
+				<h2>Backlog Distribution At Palo Alto VA Hospital</h2>
+				<p>From a backlog of 375 patients, 30% of those patients have been waiting for 6 months or longer. Here's a breakdown of how long patients have to wait. Hover over the the bars for the exact percentage.</p>
+				<p class="small">Data: Palo VA Documents Obtained by NBC Bay Area. Chart by Scott Pham.</p>
+
+					<div style="width: 100%">
+						<canvas id="canvas" height="450" width="650"></canvas>
+					</div>
+			</div>
+		</div>
+
+
+	<script>
+	var waitTimes = [70.40,19.20,4.27,2.93,1.60,1.07,0.27,0.27],
+		labels = ["0 - 6 months","6 months - 1 year","1 - 1.5 years","1.5 - 2 years","2 - 2.5 years","2.5 - 3 years","3 - 3.5 years","3.5 to 4 years"];
+	
+	</script>
+		
+	<script>
+		
+	var barChartData = {
+		labels : labels,
+		datasets : [
+			{
+				fillColor : "steelblue",
+				strokeColor : "",
+				highlightFill: "lightsteelblue",
+				highlightStroke: "",
+				data : waitTimes,
+				label: "Percentage of Backlog"
+			}
+		]
+
+	};
+	
+	window.onload = function(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myBar = new Chart(ctx).Bar(barChartData, {
+			responsive : true,
+			scaleOverride: true,
+			scaleSteps: 5,
+			scaleStepWidth: 20,
+			scaleStartValue: 0,
+			tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %> %",
+			scaleLabel: "<%=value%>%"
+		});
+	}
+
+	</script>
+	</body>
+</html>
